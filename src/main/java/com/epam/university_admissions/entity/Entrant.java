@@ -68,7 +68,7 @@ public class Entrant extends Entity{
         this.userId = userId;
     }
 
-    public boolean isBlockedStatus() {
+    public boolean getBlockedStatus() {
         return BlockedStatus;
     }
 
