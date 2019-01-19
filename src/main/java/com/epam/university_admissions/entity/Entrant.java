@@ -79,7 +79,8 @@ public class Entrant extends Entity{
     @Override
     public String toString() {
         return "Entrant{" +
-                "iin=" + iin +
+                "entrant_id=" + getId() +
+                ", iin=" + iin +
                 ", city='" + city + '\'' +
                 ", district='" + district + '\'' +
                 ", schoolName='" + schoolName + '\'' +
