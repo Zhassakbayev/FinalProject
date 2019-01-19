@@ -9,14 +9,22 @@ import java.util.ResourceBundle;
 
 public class Test {
     public static void main(String[] args) {
-        ResourceBundle resourceBundle = ResourceBundle.getBundle("resources\\database");
-        System.out.println(resourceBundle.getString("driver"));
-        System.out.println(ConnectionPool.getInstance().toString());
-        System.out.println(ConnectionPool.getInstance().toString());
-        System.out.println(ConnectionPool.getInstance().toString());
-        System.out.println(ConnectionPool.getInstance().toString());
-
-        Dao<Entrant> dao = new EntrantDAO();
-        DaoConnection daoConnection = new EntrantDAO();
+//        ResourceBundle resourceBundle = ResourceBundle.getBundle("resources\\database");
+//        System.out.println(resourceBundle.getString("driver"));
+//        System.out.println(ConnectionPool.getInstance().toString());
+//        System.out.println(ConnectionPool.getInstance().toString());
+//        System.out.println(ConnectionPool.getInstance().toString());
+//        System.out.println(ConnectionPool.getInstance().toString());
+        Dao<Entrant> entrantDAO =new EntrantDAO();
+//        Entrant entrant = new Entrant();
+//        entrant.setIin("010821351631");
+//        entrant.setCity("Oral");
+//        entrant.setDistrict("selo Akzhayik");
+//        entrant.setSchoolName("Enbek mektebi");
+//        entrant.setUserId(11);
+//        entrant.setBlockedStatus(true);
+        for (Entrant entrant : entrantDAO.findAll()){
+            System.out.println(entrant);
+        }
     }
 }
