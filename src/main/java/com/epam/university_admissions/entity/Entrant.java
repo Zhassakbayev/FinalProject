@@ -6,14 +6,14 @@ import java.sql.Connection;
 
 public class Entrant extends Entity{
 
-    private int iin;
+    private String iin;
     private String city;
     private String district;
     private String schoolName;
     private int userId;
     private boolean BlockedStatus;
 
-    public Entrant(int iin, String city, String district, String schoolName, int userId) {
+    public Entrant(String iin, String city, String district, String schoolName, int userId) {
         this.iin = iin;
         this.city = city;
         this.district = district;
@@ -22,17 +22,17 @@ public class Entrant extends Entity{
         this.BlockedStatus=false;
     }
 
-    public Entrant(int iin, String city, String district, String schoolName,User user){
+    public Entrant(String iin, String city, String district, String schoolName,User user){
         this(iin,city,district,schoolName,user.getId());
     }
     Connection connection=ConnectionPool.getInstance().getConnection();
     public Entrant(){}
 
-    public int getIin() {
+    public String getIin() {
         return iin;
     }
 
-    public void setIin(int iin) {
+    public void setIin(String iin) {
         this.iin = iin;
     }
 
