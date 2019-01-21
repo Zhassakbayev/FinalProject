@@ -1,33 +1,27 @@
 package com.epam.university_admissions.dao;
 
-import com.epam.university_admissions.entity.Entrant;
-import com.epam.university_admissions.entity.Faculty;
 import com.epam.university_admissions.entity.User;
-import com.epam.university_admissions.utils.ConstantFields;
-import com.epam.university_admissions.utils.ConstantFields.*;
 import com.epam.university_admissions.utils.MysqlRequests;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EntrantDAO extends DaoConnection implements Dao<Entrant> {
-
+public class UserDAO extends DaoConnection implements Dao<User> {
     @Override
-    public void create(Entrant entity) {
+    public void create(User entity) {
         Connection connection = getConnection();
         ResultSet resultSet = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.INSERT_ENTRANT, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.INSERT_USER, PreparedStatement.RETURN_GENERATED_KEYS)) {
             setAutoCommit(connection, false);
-            preparedStatement.setString(1, entity.getIin());
-            preparedStatement.setString(2, entity.getCity());
-            preparedStatement.setString(3, entity.getDistrict());
-            preparedStatement.setString(4, entity.getSchoolName());
-            preparedStatement.setInt(5, entity.getUserId());
-            preparedStatement.setBoolean(6,entity.getBlockedStatus());
+            preparedStatement.setString(1, entity.getFirstName());
+            preparedStatement.setString(2, entity.getLastName());
+            preparedStatement.setString(3, entity.getSecondName());
+            preparedStatement.setDate(4, Date.valueOf(entity.getDateOfBirth()));
+            preparedStatement.setString(5, entity.getEmail());
+            preparedStatement.setString(6, entity.getPassword());
+            preparedStatement.setString(7, entity.getRole());
+            preparedStatement.setString(8,entity.getLanguage());
             preparedStatement.executeUpdate();
             commit(connection);
             resultSet = preparedStatement.getGeneratedKeys();
@@ -45,17 +39,19 @@ public class EntrantDAO extends DaoConnection implements Dao<Entrant> {
     }
 
     @Override
-    public void update(Entrant entity) {
+    public void update(User entity) {
         Connection connection = getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.UPDATE_ENTRANT)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.UPDATE_USER)) {
             setAutoCommit(connection, false);
-            preparedStatement.setString(1, entity.getIin());
-            preparedStatement.setString(2, entity.getCity());
-            preparedStatement.setString(3, entity.getDistrict());
-            preparedStatement.setString(4, entity.getSchoolName());
-            preparedStatement.setInt(5, entity.getUserId());
-            preparedStatement.setBoolean(6, entity.getBlockedStatus());
-            preparedStatement.setInt(7, entity.getId());
+            preparedStatement.setString(1, entity.getFirstName());
+            preparedStatement.setString(2, entity.getLastName());
+            preparedStatement.setString(3, entity.getSecondName());
+            preparedStatement.setDate(4, Date.valueOf(entity.getDateOfBirth()));
+            preparedStatement.setString(5, entity.getEmail());
+            preparedStatement.setString(6, entity.getPassword());
+            preparedStatement.setString(7, entity.getRole());
+            preparedStatement.setString(8, entity.getLanguage());
+            preparedStatement.setInt(9, entity.getId());
             preparedStatement.executeUpdate();
             commit(connection);
         } catch (SQLException e) {
@@ -65,13 +61,12 @@ public class EntrantDAO extends DaoConnection implements Dao<Entrant> {
             setAutoCommit(connection, true);
             close(connection);
         }
-
     }
 
     @Override
-    public void delete(Entrant entity) {
+    public void delete(User entity) {
         Connection connection = getConnection();
-        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.DELETE_ENTRANT)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.DELETE_USER)) {
             setAutoCommit(connection, false);
             preparedStatement.setInt(1, entity.getId());
             preparedStatement.executeUpdate();
@@ -86,19 +81,19 @@ public class EntrantDAO extends DaoConnection implements Dao<Entrant> {
     }
 
     @Override
-    public Entrant find(int entityKey) {
+    public User find(int entityKey) {
         Connection connection = getConnection();
         ResultSet resultSet = null;
-        Entrant entrant = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.FIND_ENTRANT)) {
+        User user = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.FIND_USER)) {
             setAutoCommit(connection, false);
             preparedStatement.setInt(1, entityKey);
             commit(connection);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()){
-                entrant = getEntrant(resultSet);
+                user = getUser(resultSet);
             }else{
-                entrant = null;
+                user = null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -108,20 +103,20 @@ public class EntrantDAO extends DaoConnection implements Dao<Entrant> {
             close(resultSet);
             close(connection);
         }
-        return entrant;
+        return user;
     }
 
     @Override
-    public List<Entrant> findAll() {
-        List<Entrant> entrantList = new ArrayList<>();
+    public List<User> findAll() {
+        List<User> userList = new ArrayList<>();
         Connection connection = getConnection();
         ResultSet resultSet = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.FIND_ALL_ENTRANTS)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.FIND_ALL_USER)) {
             setAutoCommit(connection, false);
             commit(connection);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                entrantList.add(getEntrant(resultSet));
+                userList.add(getUser(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -131,45 +126,23 @@ public class EntrantDAO extends DaoConnection implements Dao<Entrant> {
             close(resultSet);
             close(connection);
         }
-        return entrantList;
+        return userList;
     }
 
-    public List<Entrant> findAllEntrantInFaculty(Faculty faculty){
-        List<Entrant> facultyEntrantList = new ArrayList<>();
+    public User findUserByEmailPassword(String email,String password){
         Connection connection = getConnection();
         ResultSet resultSet = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.FIND_ALL_ENTRANTS_IN_FACULTY)) {
+        User user = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.FIND_USER_BY_EMAIL_PASSWORD)) {
             setAutoCommit(connection, false);
-            preparedStatement.setInt(1,faculty.getId());
-            commit(connection);
-            resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                facultyEntrantList.add(getEntrant(resultSet));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            rollback(connection);
-        } finally {
-            setAutoCommit(connection, true);
-            close(resultSet);
-            close(connection);
-        }
-        return facultyEntrantList;
-    }
-
-    public Entrant findEntrantByUserId(User user){
-        Connection connection = getConnection();
-        ResultSet resultSet = null;
-        Entrant entrant = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.FIND_ENTRANT_BY_USER_ID)) {
-            setAutoCommit(connection, false);
-            preparedStatement.setInt(1, user.getId());
+            preparedStatement.setString(1, email);
+            preparedStatement.setString(2,password);
             commit(connection);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()){
-                entrant = getEntrant(resultSet);
+                user = getUser(resultSet);
             }else{
-                entrant = null;
+                user = null;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -179,22 +152,49 @@ public class EntrantDAO extends DaoConnection implements Dao<Entrant> {
             close(resultSet);
             close(connection);
         }
-        return entrant;
+        return user;
     }
 
-    private Entrant getEntrant(ResultSet resultSet){
-        Entrant entrant = new Entrant();
+    public User findUserByEmail(String email){
+        Connection connection = getConnection();
+        ResultSet resultSet = null;
+        User user = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.FIND_USER_BY_EMAIL)) {
+            setAutoCommit(connection, false);
+            preparedStatement.setString(1, email);
+            commit(connection);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                user = getUser(resultSet);
+            }else{
+                user = null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            rollback(connection);
+        } finally {
+            setAutoCommit(connection, true);
+            close(resultSet);
+            close(connection);
+        }
+        return user;
+    }
+
+    private User getUser(ResultSet resultSet){
+        User user = new User();
         try {
-            entrant.setId(resultSet.getInt(1));
-            entrant.setIin(resultSet.getString(2));
-            entrant.setCity(resultSet.getString(3));
-            entrant.setDistrict(resultSet.getString(4));
-            entrant.setSchoolName(resultSet.getString(5));
-            entrant.setUserId(resultSet.getInt(6));
-            entrant.setBlockedStatus(resultSet.getBoolean(7));
+            user.setId(resultSet.getInt(1));
+            user.setFirstName(resultSet.getString(2));
+            user.setLastName(resultSet.getString(3));
+            user.setSecondName(resultSet.getString(4));
+            user.setDateOfBirth(resultSet.getDate(5).toString());
+            user.setEmail(resultSet.getString(6));
+            user.setPassword(resultSet.getString(7));
+            user.setRole(resultSet.getString(8));
+            user.setLanguage(resultSet.getString(9));
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return entrant;
+        return user;
     }
 }

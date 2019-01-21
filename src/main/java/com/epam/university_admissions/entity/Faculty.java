@@ -14,6 +14,8 @@ public class Faculty extends Entity {
         this.budgetSeats = budgetSeats;
     }
 
+    public Faculty(){}
+
     public String getNameRu() {
         return nameRu;
     }
@@ -49,7 +51,8 @@ public class Faculty extends Entity {
     @Override
     public String toString() {
         return "Faculty{" +
-                "nameRu='" + nameRu + '\'' +
+                "FacultyId='"+ getId() +
+                " nameRu='" + nameRu + '\'' +
                 ", nameEn='" + nameEn + '\'' +
                 ", totalSeats=" + totalSeats +
                 ", budgetSeats=" + budgetSeats +

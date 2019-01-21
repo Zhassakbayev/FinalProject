@@ -59,7 +59,7 @@ public class ConnectionPool {
             if (connection == null) {
                 connection = freeConnections.poll(7, TimeUnit.SECONDS);
                 if (connection == null) {
-                    throw new SQLException("No free connection for 7 seconds.");
+                    throw new SQLException("No free connections ");
                 }
             }
             usedConnections.add(connection);

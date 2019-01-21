@@ -10,7 +10,7 @@ public class MysqlRequests {
     public static final String DELETE_ENTRANT = "DELETE FROM university_admissions.entrant WHERE entrant.ENTRANT_ID=?;";
     public static final String FIND_ALL_ENTRANTS_IN_FACULTY = "SELECT university_admissions.entrant.* FROM university_admissions.entrant INNER JOIN university_admissions.faculty_entrants ON university_admissions.faculty_entrants.ENTRANT_ID=university_admissions.entrant.ENTRANT_ID WHERE university_admissions.faculty_entrants.FACULTY_ID=?;";
 
-    public static final String INSERT_USER = "INSERT INTO university_admissions.user (FIRST_NAME, LAST_NAME, SECOND_NAME, DATE_OF_BIRTH, EMAIL,PASSWORD,ROLE) VALUES (?,?,?,?,?,?,?);";
+    public static final String INSERT_USER = "INSERT INTO university_admissions.user (FIRST_NAME, LAST_NAME, SECOND_NAME, DATE_OF_BIRTH, EMAIL,PASSWORD,ROLE,LANG) VALUES (?,?,?,?,?,?,?,?);";
     public static final String UPDATE_USER = "UPDATE university_admissions.user SET user.FIRST_NAME=?, user.LAST_NAME=?,user.SECOND_NAME=?,user.DATE_OF_BIRTH=?, user.EMAIL=?, user.PASSWORD=?, user.ROLE=?, user.LANG=? WHERE user.USER_ID=?;";
     public static final String DELETE_USER = "DELETE FROM university_admissions.user WHERE user.USER_ID=?;";
     public static final String FIND_USER = "SELECT * FROM university_admissions.user WHERE user.USER_ID = ?;";
@@ -44,7 +44,8 @@ public class MysqlRequests {
     public static final String DELETE_FACULTY_ENTRANTS = "DELETE FROM university_admissions.faculty_entrants WHERE faculty_entrants.ID=?;";
     public static final String FIND_FACULTY_ENTRANTS = "SELECT * FROM university_admissions.faculty_entrants WHERE faculty_entrants.ID=?;";
     public static final String FIND_ALL_FACULTY_ENTRANTS = "SELECT * FROM university_admissions.faculty_entrants;";
-    public static final String FIND_FACULTY_ENTRANTS_BY_FACULTY_ENTRANT = "SELECT * FROM university_admissions.faculty_entrants WHERE faculty_entrants.ENTRANT_ID=? AND faculty_entrants.FACULTY_ID=?;";
+    public static final String FIND_FACULTY_ENTRANTS_BY_ENTRANT = "SELECT * FROM university_admissions.faculty_entrants WHERE faculty_entrants.ENTRANT_ID=?;";
+    public static final String FIND_FACULTY_ENTRANTS_BY_FACULTY = "SELECT * FROM university_admissions.faculty_entrants WHERE faculty_entrants.FACULTY_ID=?;";
 
     public static final String INSERT_FACULTY_SUBJECTS = "INSERT into university_admissions.faculty_subjects (FACULTY_ID, SUBJECT_ID) VALUES (?,?);";
     public static final String UPDATE_FACULTY_SUBJECTS = "UPDATE university_admissions.faculty_subjects SET faculty_subjects.FACULTY_ID=?, faculty_subjects.SUBJECT_ID=?;";
@@ -52,7 +53,7 @@ public class MysqlRequests {
     public static final String FIND_FACULTY_SUBJECTS = "SELECT * FROM university_admissions.faculty_subjects WHERE faculty_subjects.ID=?;";
     public static final String FIND_ALL_FACULTY_SUBJECTS = "SELECT * FROM university_admissions.faculty_subjects;";
 
-    public static final String FIND_FACULTY_REPORT = "SELECT * FROM university_admissions.faculties_report WHERE faculties_report.FACULTY_ID=?;";
+    public static final String FACULTY_REPORT = "SELECT * FROM university_admissions.faculties_report WHERE faculties_report.FACULTY_ID=?;";
 
 
 

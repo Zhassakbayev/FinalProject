@@ -3,22 +3,27 @@ package com.epam.university_admissions.entity;
 public class FacultiesReport {
 
     private int facultyId;
-    private String facultyName;
-    private int iin;
+    private String facultyNameRu;
+    private String facultyNameEn;
+    private String iin;
     private String firstName;
     private String lastName;
     private String secondName;
     private int totalPointScore;
 
-    public FacultiesReport(int facultyId, String facultyName, int iin, String firstName,
+    public FacultiesReport(int facultyId, String facultyNameRu, String facultyNameEn, String iin, String firstName,
                            String lastName, String secondName, int totalPointScore) {
         this.facultyId = facultyId;
-        this.facultyName = facultyName;
+        this.facultyNameRu = facultyNameRu;
+        this.facultyNameEn = facultyNameEn;
         this.iin = iin;
         this.firstName = firstName;
         this.lastName = lastName;
         this.secondName = secondName;
         this.totalPointScore = totalPointScore;
+    }
+
+    public FacultiesReport() {
     }
 
     public int getFacultyId() {
@@ -29,19 +34,27 @@ public class FacultiesReport {
         this.facultyId = facultyId;
     }
 
-    public String getFacultyName() {
-        return facultyName;
+    public String getFacultyNameRu() {
+        return facultyNameRu;
     }
 
-    public void setFacultyName(String facultyName) {
-        this.facultyName = facultyName;
+    public void setFacultyNameRu(String facultyNameRu) {
+        this.facultyNameRu = facultyNameRu;
     }
 
-    public int getIin() {
+    public String getFacultyNameEn() {
+        return facultyNameEn;
+    }
+
+    public void setFacultyNameEn(String facultyNameEn) {
+        this.facultyNameEn = facultyNameEn;
+    }
+
+    public String getIin() {
         return iin;
     }
 
-    public void setIin(int iin) {
+    public void setIin(String iin) {
         this.iin = iin;
     }
 
@@ -81,7 +94,8 @@ public class FacultiesReport {
     public String toString() {
         return "FacultiesReport{" +
                 "facultyId=" + facultyId +
-                ", facultyName='" + facultyName + '\'' +
+                ", facultyNameRu='" + facultyNameRu + '\'' +
+                ", facultyNameEn='" + facultyNameEn + '\'' +
                 ", iin=" + iin +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +

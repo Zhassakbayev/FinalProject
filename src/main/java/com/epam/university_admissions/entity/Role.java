@@ -6,5 +6,4 @@ public enum Role {
     public String getRole(){
         return name().toUpperCase();
     }
-
 }
