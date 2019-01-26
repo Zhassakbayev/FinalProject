@@ -3,6 +3,7 @@ import com.epam.university_admissions.dao.*;
 import com.epam.university_admissions.entity.Entrant;
 import com.epam.university_admissions.entity.FacultiesReport;
 import com.epam.university_admissions.entity.Faculty;
+import com.epam.university_admissions.entity.User;
 
 import java.util.ResourceBundle;
 
@@ -14,12 +15,10 @@ public class Test {
 //        System.out.println(ConnectionPool.getInstance().toString());
 //        System.out.println(ConnectionPool.getInstance().toString());
 //        System.out.println(ConnectionPool.getInstance().toString());
-        Dao<Faculty> facultyDao = new FacultyDAO();
-        Faculty faculty = ((FacultyDAO) facultyDao).findFacultyByName("DEPARTMENT OF ELECTRIC POWER STATIONS");
-        FacultiesReportDAO facultiesReportDAO = new FacultiesReportDAO();
-        for (FacultiesReport facultiesReport : facultiesReportDAO.getFacultiesReportList(faculty)){
-            System.out.println(facultiesReport);
-        }
+//        Dao<Faculty> facultyDao = new FacultyDAO();
+        Dao<User> userDao = new UserDAO();
+        User user = ((UserDAO) userDao).findUserByEmailPassword("akbolzhasakbaev@gmail.com","1234asd");
+        System.out.println(user);
 //        Entrant entrant = new Entrant();
 //        entrant.setIin("010821351631");
 //        entrant.setCity("Oral");
