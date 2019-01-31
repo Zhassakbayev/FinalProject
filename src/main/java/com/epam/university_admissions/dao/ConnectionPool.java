@@ -1,9 +1,13 @@
 package com.epam.university_admissions.dao;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.concurrent.ArrayBlockingQueue;
@@ -22,6 +26,7 @@ public class ConnectionPool {
 
     private static BlockingQueue<Connection> freeConnections;
     private static Set<Connection> usedConnections;
+    private static ConnectionPool instance;
 
     private ConnectionPool() {
         init();
@@ -33,7 +38,7 @@ public class ConnectionPool {
         try {
             Class.forName(DRIVER);
         } catch (ClassNotFoundException e) {
-            return;
+            e.printStackTrace();
         }
         try {
             for (int i = 0; i < MAX_CONNECTIONS; i++) {
@@ -44,12 +49,12 @@ public class ConnectionPool {
         }
     }
 
-    public static class ConnectionPoolHolder {
-        public static final ConnectionPool HOLDER_INSTANCE = new ConnectionPool();
-    }
 
-    public static ConnectionPool getInstance() {
-        return ConnectionPoolHolder.HOLDER_INSTANCE;
+    public static synchronized ConnectionPool getInstance() {
+        if (instance == null) {
+            instance = new ConnectionPool();
+        }
+        return instance;
     }
 
     public Connection getConnection() {

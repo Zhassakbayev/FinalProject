@@ -19,27 +19,21 @@ public class EntrantDAO extends DaoConnection implements Dao<Entrant> {
     @Override
     public void create(Entrant entity) {
         Connection connection = getConnection();
-        ResultSet resultSet = null;
-        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.INSERT_ENTRANT, PreparedStatement.RETURN_GENERATED_KEYS)) {
+        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.INSERT_ENTRANT)) {
             setAutoCommit(connection, false);
-            preparedStatement.setString(1, entity.getIin());
-            preparedStatement.setString(2, entity.getCity());
-            preparedStatement.setString(3, entity.getDistrict());
-            preparedStatement.setString(4, entity.getSchoolName());
-            preparedStatement.setInt(5, entity.getUserId());
+            preparedStatement.setInt(1,entity.getId());
+            preparedStatement.setString(2, entity.getIin());
+            preparedStatement.setString(3, entity.getCity());
+            preparedStatement.setString(4, entity.getDistrict());
+            preparedStatement.setString(5, entity.getSchoolName());
             preparedStatement.setBoolean(6,entity.getBlockedStatus());
             preparedStatement.executeUpdate();
             commit(connection);
-            resultSet = preparedStatement.getGeneratedKeys();
-            if (resultSet.next()) {
-                entity.setId(resultSet.getInt(1));
-            }
         } catch (SQLException e) {
             e.printStackTrace();
             rollback(connection);
         } finally {
             setAutoCommit(connection, true);
-            close(resultSet);
             close(connection);
         }
     }
@@ -53,9 +47,8 @@ public class EntrantDAO extends DaoConnection implements Dao<Entrant> {
             preparedStatement.setString(2, entity.getCity());
             preparedStatement.setString(3, entity.getDistrict());
             preparedStatement.setString(4, entity.getSchoolName());
-            preparedStatement.setInt(5, entity.getUserId());
-            preparedStatement.setBoolean(6, entity.getBlockedStatus());
-            preparedStatement.setInt(7, entity.getId());
+            preparedStatement.setBoolean(5, entity.getBlockedStatus());
+            preparedStatement.setInt(6, entity.getId());
             preparedStatement.executeUpdate();
             commit(connection);
         } catch (SQLException e) {
@@ -190,8 +183,7 @@ public class EntrantDAO extends DaoConnection implements Dao<Entrant> {
             entrant.setCity(resultSet.getString(3));
             entrant.setDistrict(resultSet.getString(4));
             entrant.setSchoolName(resultSet.getString(5));
-            entrant.setUserId(resultSet.getInt(6));
-            entrant.setBlockedStatus(resultSet.getBoolean(7));
+            entrant.setBlockedStatus(resultSet.getBoolean(6));
         } catch (SQLException e) {
             e.printStackTrace();
         }

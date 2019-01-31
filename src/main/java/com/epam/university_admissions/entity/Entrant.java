@@ -4,28 +4,22 @@ import com.epam.university_admissions.dao.ConnectionPool;
 
 import java.sql.Connection;
 
-public class Entrant extends Entity{
+public class Entrant extends User{
 
     private String iin;
     private String city;
     private String district;
     private String schoolName;
-    private int userId;
     private boolean BlockedStatus;
 
-    public Entrant(String iin, String city, String district, String schoolName, int userId) {
+    public Entrant(String iin, String city, String district, String schoolName ) {
         this.iin = iin;
         this.city = city;
         this.district = district;
         this.schoolName = schoolName;
-        this.userId = userId;
         this.BlockedStatus=false;
     }
 
-    public Entrant(String iin, String city, String district, String schoolName,User user){
-        this(iin,city,district,schoolName,user.getId());
-    }
-    Connection connection=ConnectionPool.getInstance().getConnection();
     public Entrant(){}
 
     public String getIin() {
@@ -60,14 +54,6 @@ public class Entrant extends Entity{
         this.schoolName = schoolName;
     }
 
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
     public boolean getBlockedStatus() {
         return BlockedStatus;
     }
@@ -84,7 +70,6 @@ public class Entrant extends Entity{
                 ", city='" + city + '\'' +
                 ", district='" + district + '\'' +
                 ", schoolName='" + schoolName + '\'' +
-                ", userId=" + userId +
                 ", BlockedStatus=" + BlockedStatus +
                 '}';
     }

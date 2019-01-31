@@ -14,6 +14,8 @@
 <h1>Thanks for signing up with us!</h1>
 <h2>You provided the following data:</h2>
 <p><strong>First Name: </strong> ${name}</p>
-<p><strong>Email: </strong>${email}</p>
+<p><strong>SecondName: </strong>${secondName}</p>
+<p><strong>userRole: </strong>${userRole}</p>
+<p><strong>Language: </strong>${lang}</p>
 </body>
 </html>
