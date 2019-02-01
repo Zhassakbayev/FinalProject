@@ -42,30 +42,6 @@ public class Test {
 //            System.out.println(faculty);
 //        }
 
-        System.out.println(isDateValid("2019-05-31"));
-        SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String str = myFormat.format(new Date());
-        System.out.println("Entered date has not arrived yet!");
-    }
 
-    public static boolean isDateValid(String date) {
-        SimpleDateFormat myFormat = new SimpleDateFormat("yyyy-MM-dd");
-        myFormat.setLenient(false);
-        try {
-            myFormat.parse(date);
-            return true;
-        } catch (Exception e) {
-            return false;
-        }
-    }
-//    public static boolean checkToCurrentDate(String date){
-//        Pattern pattern = Pattern.compile("[\\d]{4}");
-//        Matcher matcher = pattern.matcher(date);
-//        while(matcher.find()){
-//            System.out.println(matcher.group());
-//        }
-//    }
-
-
-
+}
 }
