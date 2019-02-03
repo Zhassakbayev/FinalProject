@@ -1,7 +1,10 @@
 package com.epam.university_admissions.utils;
 
 public final class ConstantFields {
+    public static final String OLD_EMAIL = "old_email";
+    public static final String SERVICE_NAME = "service_name";
 
+    public static final String ENTRANT = "entrant";
     public static final String ENTRANT_ID = "entrant_id";
     public static final String IIN = "iin";
     public static final String CITY = "city";
@@ -22,6 +25,7 @@ public final class ConstantFields {
     public static final String SUBJECT_NAME_RU = "subject_name_ru";
     public static final String SUBJECT_NAME_EN = "subject_name_en";
 
+    public static final String USER = "user";
     public static final String USER_ID = "user_id";
     public static final String FIRST_NAME = "first_name";
     public static final String LAST_NAME = "last_name";

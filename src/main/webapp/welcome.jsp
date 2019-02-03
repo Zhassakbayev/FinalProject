@@ -7,7 +7,8 @@
 <h1>User Sign Up</h1>
 
 
-<form action="UniversityAdmissionsController" method="GET">
+<form action="UniversityAdmissionsController" method="POST">
+    <input type="hidden" name="service_name" value="login"/>
     <label for="email">Email: </label>
     <input type="text" name="email" id="email" value="${email}">
     <label for="password">Password: </label>

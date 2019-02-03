@@ -1,5 +1,7 @@
 package com.epam.university_admissions.service;
 
+import com.epam.university_admissions.utils.ActionType;
+import com.epam.university_admissions.utils.ConstantFields;
 import com.epam.university_admissions.utils.Paths;
 
 import javax.servlet.ServletException;
@@ -9,10 +11,8 @@ import java.io.IOException;
 
 public class NoService implements Service {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String errorMessage = "No such service";
-        request.setAttribute("errorMessage",errorMessage);
-        request.getRequestDispatcher(Paths.ERROR_PAGE).forward(request,response);
-
+    public String execute(HttpServletRequest request, HttpServletResponse response, ActionType actionType) throws ServletException, IOException {
+        request.setAttribute(ConstantFields.ERROR_MESSAGE,"No such service");
+        return Paths.ERROR_PAGE;
     }
 }

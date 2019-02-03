@@ -1,6 +1,7 @@
 package com.epam.university_admissions.service.profile;
 
 import com.epam.university_admissions.service.Service;
+import com.epam.university_admissions.utils.ActionType;
 import com.epam.university_admissions.utils.Paths;
 
 import javax.servlet.ServletException;
@@ -11,11 +12,11 @@ import java.io.IOException;
 
 public class LogoutService implements Service {
     @Override
-    public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String execute(HttpServletRequest request, HttpServletResponse response, ActionType actionType) throws ServletException, IOException {
         HttpSession session = request.getSession(false);
-        if(session!=null){
+        if (session != null){
             session.invalidate();
         }
-        request.getRequestDispatcher(Paths.WELCOME_PAGE).forward(request,response);
+        return Paths.WELCOME_PAGE;
     }
 }

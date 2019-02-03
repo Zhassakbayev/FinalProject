@@ -42,6 +42,7 @@ public class Test {
 //            System.out.println(faculty);
 //        }
 
-
+        String str = "\u041e\u041a";
+        System.out.println(str);
 }
 }
