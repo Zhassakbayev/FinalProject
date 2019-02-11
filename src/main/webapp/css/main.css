@@ -1,0 +1,92 @@
+@CHARSET "UTF-8";
+
+
+body {
+    font-size: 16px;
+    font-family: "Times New Roman";
+}
+
+label {
+    float: left;
+    padding-right: 10px;
+    color: #0000CD;
+    font-family: inherit;
+}
+
+a {
+    color: #20B2AA;
+}
+
+a:link {
+    color: #20B2AA;
+}
+
+/* visited link */
+a:visited {
+    color: #20B2AA;
+}
+
+/* mouse over link */
+a:hover {
+    color: #20B2AA;
+}
+
+/* selected link */
+a:active {
+    color: #20B2AA;
+}
+
+.field {
+    clear: both;
+    text-align: right;
+    line-height: 25px;
+}
+
+.form {
+    float: left;
+    margin-left: 20%;
+}
+
+.view {
+    float: left;
+    margin-left: 20%;
+}
+
+.header {
+    font-size: 1.5em;
+    margin-left: 43%;
+}
+
+.welcome_form {
+    float: left;
+    margin-left: 40%;
+}
+
+.menu {
+    margin-left: 41%;
+    font-size: 18px;
+    font-family: "Times New Roman";
+}
+input[type=number] {
+    -moz-appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=text] {
+    width: 150px;
+}
+
+select {
+    width: 156px;
+}
+
+input[type=password] {
+    width: 150px;
+}
+
+input[type=number] {
+    width: 150px;
+}

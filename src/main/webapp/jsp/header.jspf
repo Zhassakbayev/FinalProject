@@ -1,0 +1,35 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Hp
+  Date: 05.02.2019
+  Time: 23:31
+  To change this template use File | Settings | File Templates.
+--%>
+<!-- Header - top area. -->
+
+<%@ include file="/jsp/taglib.jspf"%>
+
+<br>
+<br>
+
+<div class="menu">
+	<a href="controller?service=viewAllFaculties"><fmt:message
+			key="key.faculties" /></a>
+	<c:choose>
+		<c:when test="${empty user}">
+			<a href="welcome.jsp"> <fmt:message key="key.login" /></a>
+			<a href="controller?service=registration_client"><fmt:message key="key.register" /></a>
+		</c:when>
+		<c:otherwise>
+			<c:if test="${userRole eq 'admin'}">
+				<a href="controller?service=viewAllSubjects"><fmt:message key="key.subjects" /></a>
+			</c:if>
+			<a href="controller?service=viewProfile"><fmt:message key="key.profile" /></a>
+			<a href="controller?service=logout"><fmt:message key="key.logout" /></a>
+		</c:otherwise>
+	</c:choose>
+</div>
+<br>
+<br>
+<br>
+<br>

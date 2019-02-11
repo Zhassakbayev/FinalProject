@@ -1,5 +1,6 @@
 package com.epam.university_admissions.dao;
 
+import com.epam.university_admissions.entity.Faculty;
 import com.epam.university_admissions.entity.FacultySubjects;
 import com.epam.university_admissions.utils.MysqlRequests;
 
@@ -117,6 +118,22 @@ public class FacultySubjectsDAO extends DaoConnection implements Dao<FacultySubj
             close(connection);
         }
         return facultySubjectsList;
+    }
+
+    public void deleteAllSubjectFaculty(Faculty entity) {
+        Connection connection = getConnection();
+        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.DELETE_ALL_SUBJECTS_FACULTY)) {
+            setAutoCommit(connection, false);
+            preparedStatement.setInt(1, entity.getId());
+            preparedStatement.executeUpdate();
+            commit(connection);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            rollback(connection);
+        } finally {
+            setAutoCommit(connection, true);
+            close(connection);
+        }
     }
 
     private FacultySubjects getFacultySubjects(ResultSet resultSet){

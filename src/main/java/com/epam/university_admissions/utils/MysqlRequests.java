@@ -38,6 +38,8 @@ public class MysqlRequests {
     public static final String FIND_SUBJECT = "SELECT * FROM university_admissions.subject WHERE subject.SUBJECT_ID=?;";
     public static final String FIND_ALL_SUBJECT = "SELECT * FROM university_admissions.subject;";
     public static final String FIND_SUBJECTS_IN_FACULTY = "SELECT university_admissions.subject.* FROM university_admissions.subject INNER JOIN university_admissions.faculty_subjects ON subject.SUBJECT_ID=faculty_subjects.SUBJECT_ID WHERE faculty_subjects.FACULTY_ID=?;";
+    public static final String FIND_SUBJECT_BY_NAME_EN = "SELECT * FROM university_admissions.subject WHERE subject.NAME_EN=?;";
+    public static final String FIND_ALL_SUBJECTS_NOT_FACULTY = "SELECT university_admissions.subject.* FROM university_admissions.subject LEFT JOIN university_admissions.faculty_subjects ON subject.SUBJECT_ID=faculty_subjects.SUBJECT_ID AND faculty_subjects.FACULTY_ID=? WHERE faculty_subjects.ID IS NULL;";
 
     public static final String INSERT_FACULTY_ENTRANTS = "INSERT into university_admissions.faculty_entrants (ENTRANT_ID, FACULTY_ID) VALUES (?,?);";
     public static final String UPDATE_FACULTY_ENTRANTS = "UPDATE university_admissions.faculty_entrants SET faculty_entrants.ENTRANT_ID=?, faculty_entrants.FACULTY_ID=?;";
@@ -52,6 +54,7 @@ public class MysqlRequests {
     public static final String DELETE_FACULTY_SUBJECTS = "DELETE FROM university_admissions.faculty_subjects WHERE faculty_subjects.ID=?;";
     public static final String FIND_FACULTY_SUBJECTS = "SELECT * FROM university_admissions.faculty_subjects WHERE faculty_subjects.ID=?;";
     public static final String FIND_ALL_FACULTY_SUBJECTS = "SELECT * FROM university_admissions.faculty_subjects;";
+    public static final String DELETE_ALL_SUBJECTS_FACULTY = "DELETE  FROM university_admissions.faculty_subjects WHERE faculty_subjects.FACULTY_ID=?;";
 
     public static final String FACULTY_REPORT = "SELECT * FROM university_admissions.faculties_report WHERE faculties_report.FACULTY_ID=?;";
 

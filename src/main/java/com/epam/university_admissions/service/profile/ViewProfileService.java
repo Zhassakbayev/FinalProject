@@ -39,7 +39,7 @@ public class ViewProfileService implements Service {
         request.setAttribute(ConstantFields.ROLE, user.getRole());
         String role = user.getRole();
         if (role.equals("admin")) {
-            result = Paths.ADMIN_PROFILE;
+            result = Paths.FORWARD_ADMIN_PROFILE;
         } else if (role.equals("client")) {
             EntrantDAO entrantDAO = new EntrantDAO();
             Entrant entrant = entrantDAO.findEntrantByUserId(user);
@@ -48,7 +48,7 @@ public class ViewProfileService implements Service {
             request.setAttribute(ConstantFields.DISTRICT, entrant.getDistrict());
             request.setAttribute(ConstantFields.SCHOOL_NAME, entrant.getSchoolName());
             request.setAttribute(ConstantFields.IS_BLOCKED, entrant.getBlockedStatus());
-            result = Paths.CLIENT_PROFILE;
+            result = Paths.FORWARD_CLIENT_PROFILE ;
         }
         return result;
     }

@@ -120,13 +120,13 @@ public class SubjectDAO extends DaoConnection implements Dao<Subject> {
         return subjectList;
     }
 
-    public List<Subject> findSubjectsInFaculty(Faculty faculty){
+    public List<Subject> findSubjectsInFaculty(Faculty entity){
         List<Subject> facultySubjectsList = new ArrayList<>();
         Connection connection = getConnection();
         ResultSet resultSet = null;
         try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.FIND_SUBJECTS_IN_FACULTY)) {
             setAutoCommit(connection, false);
-            preparedStatement.setInt(1,faculty.getId());
+            preparedStatement.setInt(1,entity.getId());
             commit(connection);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
@@ -141,6 +141,54 @@ public class SubjectDAO extends DaoConnection implements Dao<Subject> {
             close(connection);
         }
         return facultySubjectsList;
+    }
+
+    public Subject findSubjectByNameEn(String subjectName) {
+        Connection connection = getConnection();
+        ResultSet resultSet = null;
+        Subject subject = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.FIND_SUBJECT_BY_NAME_EN)) {
+            setAutoCommit(connection, false);
+            preparedStatement.setString(1, subjectName);
+            commit(connection);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                subject = getSubject(resultSet);
+            }else{
+                subject = null;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            rollback(connection);
+        } finally {
+            setAutoCommit(connection, true);
+            close(resultSet);
+            close(connection);
+        }
+        return subject;
+    }
+
+    public List<Subject> findAllSubjectsNotFaculty(Faculty entity) {
+        List<Subject> notFacultySubjectsList = new ArrayList<>();
+        Connection connection = getConnection();
+        ResultSet resultSet = null;
+        try (PreparedStatement preparedStatement = connection.prepareStatement(MysqlRequests.FIND_ALL_SUBJECTS_NOT_FACULTY)) {
+            setAutoCommit(connection, false);
+            preparedStatement.setInt(1,entity.getId());
+            resultSet = preparedStatement.executeQuery();
+            commit(connection);
+            while (resultSet.next()){
+                notFacultySubjectsList.add(getSubject(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            rollback(connection);
+        } finally {
+            setAutoCommit(connection, true);
+            close(resultSet);
+            close(connection);
+        }
+        return notFacultySubjectsList;
     }
 
     private Subject getSubject(ResultSet resultSet){

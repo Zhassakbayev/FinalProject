@@ -1,0 +1,14 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: Hp
+  Date: 06.02.2019
+  Time: 0:17
+  To change this template use File | Settings | File Templates.
+--%>
+<%@ include file="/jsp/taglib.jspf" %>
+
+<head>
+	<style>
+		<%@ include file="/css/main.css" %>
+	</style>
+</head>

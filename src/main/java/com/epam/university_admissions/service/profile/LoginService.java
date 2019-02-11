@@ -40,7 +40,7 @@ public class LoginService implements Service {
             session.setAttribute(ConstantFields.EMAIL,user.getEmail());
             session.setAttribute(ConstantFields.ROLE,user.getRole());
             session.setAttribute(ConstantFields.LANG,user.getLanguage());
-            result = "/WEB-INF/views/userinfo.jsp";
+            result = Paths.REDIRECT_TO_VIEW_ALL_FACULTIES;
         }
         return result;
     }

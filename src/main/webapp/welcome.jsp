@@ -1,19 +1,47 @@
-<html lang="en">
+<%@ include file="/jsp/taglib.jspf" %>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Customer Sign Up</title>
+    <title>
+        <fmt:message key="key.welcome"/>
+    </title>
+    <%@ include file="jsp/head.jspf" %>
 </head>
 <body>
-<h1>User Sign Up</h1>
+<%@ include file="jsp/header.jspf" %>
+<div class="header">
+    <fmt:message key="key.welcome"/>
+</div>
+<br><br>
+<div class="welcome_form">
+    <form id="login_form" action="controller" method="POST">
+        <input type="hidden" name="service" value="login"/>
+        <div class="field">
+            <label> <fmt:message key="key.login"/>
+            </label> <input type="text" name="email" required/>
+        </div>
+        <br>
+        <div class="field">
+            <label> <fmt:message key="key.password"/>
+            </label> <input type="password" name="password" required/>
+        </div>
+        <div class="field">
+            <input type="submit"
+                   value="<fmt:message key="key.login"/>">
+        </div>
+        <br>
+        <div class="field">
+            <fmt:message key="key.not_registered_msg"/>
+            <a href="controller?service=registration_client"><fmt:message
+                    key="key.register_here_msg"/></a>
+        </div>
+    </form>
+</div>
+<c:if test="${not empty error_message}">
+    <c:out value="${errorMessage}"></c:out>
+</c:if>
 
-
-<form action="UniversityAdmissionsController" method="POST">
-    <input type="hidden" name="service_name" value="login"/>
-    <label for="email">Email: </label>
-    <input type="text" name="email" id="email" value="${email}">
-    <label for="password">Password: </label>
-    <input type="password" name="password" id="password" value="${password}">
-    <input type="submit" name="signup" value="Sign Up">
-</form>
+<c:if test="${not empty successful_message}">
+    <c:out value="${successfulMessage}"></c:out>
+</c:if>
 </body>
 </html>

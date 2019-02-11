@@ -24,7 +24,8 @@ public class UniversityAdmissionsController extends HttpServlet {
     }
 
     private void process(HttpServletRequest request , HttpServletResponse response, ActionType actionType) throws ServletException,IOException{
-        String serviceName = request.getParameter(ConstantFields.SERVICE_NAME);
+        String uri = request.getRequestURI();
+        String serviceName = request.getParameter(ConstantFields.SERVICE);
         ServiceFactory serviceFactory  = new ServiceFactory();
         Service service = serviceFactory.getService(serviceName);
         String result = service.execute(request,response,actionType);
@@ -33,8 +34,10 @@ public class UniversityAdmissionsController extends HttpServlet {
         }else {
             if (actionType ==ActionType.GET){
                 request.getRequestDispatcher(result).forward(request,response);
+                int a = 5;
             }else if (actionType == ActionType.POST){
                 response.sendRedirect(result);
+                int b= 6;
             }
         }
     }

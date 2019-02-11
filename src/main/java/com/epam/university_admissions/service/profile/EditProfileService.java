@@ -23,7 +23,6 @@ public class EditProfileService implements Service {
         String result = null;
         if (ActionType.GET == actionType) {
             result = doGet(request, response);
-
         } else if (ActionType.POST == actionType) {
             result = doPost(request, response);
         }
@@ -54,9 +53,9 @@ public class EditProfileService implements Service {
             request.setAttribute(ConstantFields.DISTRICT, entrant.getDistrict());
             request.setAttribute(ConstantFields.SCHOOL_NAME, entrant.getSchoolName());
             request.setAttribute(ConstantFields.IS_BLOCKED, entrant.getBlockedStatus());
-            result = Paths.CLIENT_PROFILE_EDIT;
+            result = Paths.FORWARD_CLIENT_PROFILE_EDIT;
         } else if (role.equalsIgnoreCase("admin")) {
-            result = Paths.ADMIN_PROFILE_EDIT;
+            result = Paths.FORWARD_ADMIN_PROFILE_EDIT;
         }
         return result;
     }
@@ -76,12 +75,13 @@ public class EditProfileService implements Service {
         String role = String.valueOf(session.getAttribute(ConstantFields.ROLE));
 
         UserValidator userValidator = new UserValidator();
-        boolean validator = userValidator.isViolatedUserParameters(firstName, lastName, secondName, dateOfBirth, email, password, lang);
+        boolean userParametersValidator = userValidator.isViolatedUserParameters(firstName, lastName, secondName, dateOfBirth, email, password, lang);
         UserDAO userDAO = new UserDAO();
-        if (!validator) {
+        if (!userParametersValidator) {
             request.setAttribute(ConstantFields.ERROR_MESSAGE, "Please fill all fields properly!");
+            request.setAttribute(ConstantFields.VIOLATIONS, userValidator.getViolations());
             result = Paths.REDIRECT_EDIT_PROFILE;
-        } else if (validator) {
+        } else if (userParametersValidator) {
             if (role.equals("admin")) {
                 User user = userDAO.findUserByEmail(oldEmail);
                 user.setFirstName(firstName);
@@ -102,11 +102,12 @@ public class EditProfileService implements Service {
                 String schoolName = request.getParameter(ConstantFields.SCHOOL_NAME);
                 boolean blockedStatus = Boolean.parseBoolean(request.getParameter(ConstantFields.IS_BLOCKED));
                 EntrantValidator entrantValidator = new EntrantValidator();
-                validator = entrantValidator.isViolatedEntrantParameters(iin, city, district, schoolName);
-                if (!validator) {
+                boolean entrantParametersValidator = entrantValidator.isViolatedEntrantParameters(iin, city, district, schoolName);
+                if (!entrantParametersValidator) {
                     request.setAttribute(ConstantFields.ERROR_MESSAGE, "Please fill all fields properly!");
+                    request.setAttribute(ConstantFields.VIOLATIONS, entrantValidator.getViolations());
                     result = Paths.REDIRECT_EDIT_PROFILE;
-                } else if (validator) {
+                } else if (entrantParametersValidator) {
                     User user = userDAO.findUserByEmail(oldEmail);
                     user.setFirstName(firstName);
                     user.setLastName(lastName);
